@@ -1,5 +1,6 @@
 package com.reinaldo;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -9,10 +10,24 @@ import com.reinaldo.domain.Cliente;
 import com.reinaldo.domain.Endereco;
 import com.reinaldo.domain.Estado;
 import com.reinaldo.domain.enums.TipoCliente;
+import com.reinaldo.repos.CidadeRepo;
+import com.reinaldo.repos.ClienteRepo;
+import com.reinaldo.repos.EnderecoRepo;
+import com.reinaldo.repos.EstadoRepo;
 
 @SpringBootApplication
 public class ProjetoClientApplication implements CommandLineRunner{
 
+	@Autowired
+	private CidadeRepo cidadeRepo;
+	@Autowired
+	private EstadoRepo estadoRepo;
+	@Autowired
+	private EnderecoRepo enderecoRepo;
+	@Autowired
+	private ClienteRepo clienteRepo;
+	
+	
 	public static void main(String[] args) {
 		SpringApplication.run(ProjetoClientApplication.class, args);
 	}
@@ -34,6 +49,11 @@ public class ProjetoClientApplication implements CommandLineRunner{
 		end1.setCliente(cli1);
 		
 		cli1.getEnderecos().add(end1);
+		
+		estadoRepo.save(e1);
+		cidadeRepo.save(cid1);
+		clienteRepo.save(cli1);
+		enderecoRepo.save(end1);
 		
 	}
 
