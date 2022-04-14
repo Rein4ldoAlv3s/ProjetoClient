@@ -2,7 +2,7 @@ package com.reinaldo.domain.enums;
 
 public enum TipoCliente {
 
-	PESSOAFISICA(0, "Pessoa Física"), 
+	PESSOAFISICA(0, "Pessoa Física"),
 	PESSOAJURIDICA(1, "Pessoa Jurídica");
 
 	private Integer cod;
@@ -20,17 +20,17 @@ public enum TipoCliente {
 	public String getDescricao() {
 		return descricao;
 	}
-
+	
 	public static TipoCliente toEnum(Integer cod) {
 		if(cod == null) {
 			return null;
 		}
 		for(TipoCliente x : TipoCliente.values()) {
-			if(x.getCod().equals(cod)) {
+			if(cod.equals(x.getCod())) {
 				return x;
 			}
 		}
-		throw new IllegalArgumentException("Codigo errado! " + cod);
+		throw new IllegalArgumentException();
 	}
 
 }

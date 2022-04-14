@@ -3,10 +3,23 @@ package com.reinaldo.domain;
 import java.io.Serializable;
 import java.util.Objects;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+@Entity
 public class Endereco implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String logradouro;
 	private String numero;
@@ -14,11 +27,21 @@ public class Endereco implements Serializable {
 	private String bairro;
 	private String cep;
 
+	@JsonManagedReference
+	@ManyToOne
+	@JoinColumn(name = "cidade_id")
+	private Cidade cidade;
+
+	@ManyToOne
+	@JoinColumn(name = "cliente_id")
+	private Cliente cliente;
+
 	public Endereco() {
 		super();
 	}
 
-	public Endereco(Integer id, String logradouro, String numero, String complemento, String bairro, String cep) {
+	public Endereco(Integer id, String logradouro, String numero, String complemento, String bairro, String cep,
+			Cidade cidade) {
 		super();
 		this.id = id;
 		this.logradouro = logradouro;
@@ -26,6 +49,7 @@ public class Endereco implements Serializable {
 		this.complemento = complemento;
 		this.bairro = bairro;
 		this.cep = cep;
+		this.cidade = cidade;
 	}
 
 	public Integer getId() {
@@ -74,6 +98,22 @@ public class Endereco implements Serializable {
 
 	public void setCep(String cep) {
 		this.cep = cep;
+	}
+
+	public Cidade getCidade() {
+		return cidade;
+	}
+
+	public void setCidade(Cidade cidade) {
+		this.cidade = cidade;
+	}
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
 	}
 
 	@Override
